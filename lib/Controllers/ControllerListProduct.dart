@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ControllerListProduct extends GetxController {
+    RxInt index = 0.obs;
   RxList<ProductResponseModel> productResponModelCtr =
       <ProductResponseModel>[].obs;
   SharedPreferences? prefs;
@@ -28,7 +29,7 @@ class ControllerListProduct extends GetxController {
   void loadData() async {
     try{
       final response = await http.get(Uri.parse(
-          "https://edf5-2404-c0-7050-00-8ba1-c62e.ngrok-free.app/api/product"));
+          "https://778d-103-28-113-244.ngrok-free.app/api/product"));
 
       if (response.statusCode == 200) {
         // mengisi data productResponModelCtr dengan hasil json dari model

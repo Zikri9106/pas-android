@@ -1,36 +1,22 @@
 import 'package:flutter/material.dart';
+import '../model/ProductResponseModel.dart';
 
 class DetailProduct extends StatelessWidget {
-  final String productName;
-  final String productImage;
-  final String productPrice;
-  final double productRating;
-  final String totalSold;
-  final int remainingStock;
-  final String productSpecification;
-  final String productDescription;
-
-  const DetailProduct({super.key, 
-    required this.productName,
-    required this.productImage,
-    required this.productPrice,
-    required this.productRating,
-    required this.totalSold,
-    required this.remainingStock,
-    required this.productSpecification,
-    required this.productDescription,
-  });
+  final ProductResponseModel product;
+  
+  const DetailProduct(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              productImage,
-              height: 200,
+              product.gambarBarang,
+              height: 500,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -40,33 +26,43 @@ class DetailProduct extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    productName,
+                    product.namaBarang,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 81, 80, 112),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Rp ${productPrice.toString()}',
+                    'Rp ${product.hargaBarang.toString()}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.orange,
+                      color: Color.fromARGB(255, 255, 142, 110),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.star, color: Colors.yellow),
+                      const Icon(Icons.star,
+                          color: Color.fromARGB(255, 255, 142, 110), size: 16),
                       const SizedBox(width: 4),
-                      Text(productRating.toString(),
+                      Text(product.rating.toString(),
                           style: const TextStyle(fontSize: 16)),
-                      const SizedBox(width: 8),
-                      Text('Terjual $totalSold',
+                      const SizedBox(width: 50),
+                      const Icon(Icons.sell,
+                          color: Color.fromARGB(255, 255, 142, 110), size: 15),
+                      const SizedBox(width: 4),
+                      Text('${product.jumlahTerjual} terjual',
                           style: const TextStyle(fontSize: 16)),
-                      const SizedBox(width: 8),
-                      Text('Stok $remainingStock',
+                      const SizedBox(width: 50),
+                      const Icon(Icons.shopping_cart,
+                          color: Color.fromARGB(255, 255, 142, 110), size: 15),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text('${product.sisaBarang} Stok',
                           style: const TextStyle(fontSize: 16)),
                     ],
                   ),
@@ -74,27 +70,29 @@ class DetailProduct extends StatelessWidget {
                   const Text(
                     'Spesifikasi',
                     style: TextStyle(
+                      color: Color.fromARGB(255, 255, 142, 110),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    productSpecification,
-                    style: const TextStyle(fontSize: 16),
+                    product.spesifikasiBarang,
+                    style: const TextStyle(fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
                   ),
                   const SizedBox(height: 16),
                   const Text(
                     'Deskripsi',
                     style: TextStyle(
+                      color: Color.fromARGB(255, 255, 142, 110),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    productDescription,
-                    style: const TextStyle(fontSize: 16),
+                    product.deskripsiBarang,
+                    style: const TextStyle(fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
                   ),
                 ],
               ),

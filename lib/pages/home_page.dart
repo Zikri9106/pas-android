@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pas_android/Controllers/ControllerListProduct.dart';
-import 'package:pas_android/Controllers/ControllerDetailProduct.dart';
+import 'package:pas_android/pages/detail_product.dart';
 import 'package:pas_android/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:pas_android/widgets/product_carousel_card.dart';
@@ -17,13 +17,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final productController = Get.put(ControllerListProduct());
-  final detailController = Get.put(ControllerDetailProduct());
+  // final detailController = Get.put(ControllerDetailProduct());
   int currentCarouselPage = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 234, 234),
+      backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: Obx(() => productController.isLoading.value
           ? const CircularProgressIndicator()
           : ListView(
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                           const Text(
                             "Hello, User \nXiaomi",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 255, 142, 110),
                             ),
@@ -89,9 +89,8 @@ class _HomePageState extends State<HomePage> {
                                 final product = sortedProducts[index];
                                 return GestureDetector(
                                   onTap: () async {
-                                    await detailController
-                                        .loadProductsFromDatabase(); 
-                                    detailController.selectedDetail(index);
+                                    Get.to(DetailProduct(product));
+                                    // productController.index = index.obs;
                                   },
                                   child: ProductCarouselCard(product: product),
                                 );
@@ -140,17 +139,23 @@ class _HomePageState extends State<HomePage> {
                       ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: min(
-                            20, productController.productResponModelCtr.length),
+                        itemCount:
+                            productController.productResponModelCtr.length,
                         itemBuilder: (BuildContext ctx, int index) {
                           final product =
                               productController.productResponModelCtr[index];
-                          return ProductCard(
-                            image: product.gambarBarang,
-                            title: product.namaBarang,
-                            price: product.hargaBarang,
-                            rating: product.rating,
-                            totalBuy: product.jumlahTerjual,
+                          return GestureDetector(
+                            onTap: () async {
+                              Get.to(DetailProduct(product));
+                              // productController.index = index.obs;
+                            },
+                            child: ProductCard(
+                              image: product.gambarBarang,
+                              title: product.namaBarang,
+                              price: product.hargaBarang,
+                              rating: product.rating,
+                              totalBuy: product.jumlahTerjual,
+                            ),
                           );
                         },
                       ),
