@@ -1,7 +1,9 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pas_android/Controllers/ControllerListProduct.dart';
+import 'package:pas_android/Controllers/controller_list_product.dart';
 import 'package:pas_android/pages/detail_product.dart';
 import 'package:pas_android/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -9,7 +11,7 @@ import 'package:pas_android/widgets/product_carousel_card.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -29,44 +31,50 @@ class _HomePageState extends State<HomePage> {
           : ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          const Text(
-                            "Hello, User \nXiaomi",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 255, 142, 110),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Hello, User \nXiaomi",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 255, 142, 110),
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 142, 110),
-                              borderRadius: BorderRadius.circular(8.0),
+                            const Spacer(),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 142, 110),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: IconButton(
+                                iconSize: 20,
+                                icon: const Icon(Icons.search),
+                                color: Colors.white,
+                                onPressed: () {},
+                              ),
                             ),
-                            child: IconButton(
-                              iconSize: 20,
-                              icon: const Icon(Icons.search),
-                              color: Colors.white,
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 25),
-                      const Text(
-                        "Barang Terpopuler",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 81, 80, 112),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          "Barang Terpopuler",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 81, 80, 112),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -127,12 +135,15 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 25),
-                      const Text(
-                        "Barang Terbaru",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 81, 80, 112),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          "Barang Terbaru",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 81, 80, 112),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10),

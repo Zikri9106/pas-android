@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pas_android/model/ProductResponseModel.dart';
+import 'package:pas_android/model/product_response_model.dart';
 
 class ProductCarouselCard extends StatelessWidget {
   final ProductResponseModel product;
@@ -11,8 +11,6 @@ class ProductCarouselCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double cardWidth =
         MediaQuery.of(context).size.width - 20;
-    double cardHeight =
-        cardWidth * 3/4;
     return Card(
       child: Stack(
         children: [
@@ -20,7 +18,6 @@ class ProductCarouselCard extends StatelessWidget {
             product.gambarBarang,
             fit: BoxFit.cover,
             width: double.infinity,
-            height: cardHeight,
           ),
           Positioned(
             bottom: 0,

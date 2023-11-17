@@ -1,14 +1,51 @@
 import 'package:flutter/material.dart';
-import '../model/ProductResponseModel.dart';
+import 'package:get/get.dart';
+import '../model/product_response_model.dart';
 
 class DetailProduct extends StatelessWidget {
   final ProductResponseModel product;
-  
+
   const DetailProduct(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 245, 245, 245),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 81, 80, 112)),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/logo-mishop.png',
+              height: 30,
+              width: 30,
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              'MiShop',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 142, 110),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart, color: Color.fromARGB(255, 81, 80, 112)),
+            onPressed: () {
+            },
+          ),
+        ],
+      ),
       backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: SingleChildScrollView(
         child: Column(
@@ -78,7 +115,8 @@ class DetailProduct extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     product.spesifikasiBarang,
-                    style: const TextStyle(fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
+                    style: const TextStyle(
+                        fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -92,7 +130,8 @@ class DetailProduct extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     product.deskripsiBarang,
-                    style: const TextStyle(fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
+                    style: const TextStyle(
+                        fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
                   ),
                 ],
               ),
