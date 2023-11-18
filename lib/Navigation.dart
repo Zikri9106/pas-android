@@ -15,7 +15,7 @@ class Navigation extends StatelessWidget {
     controller = PersistentTabController(initialIndex: 0);
 
     List<Widget> _buildScreens() {
-      return [const HomePage(), const CartPage(), const ProfilePage()];
+      return [const HomePage(), CartPage(), const ProfilePage()];
     }
 
     List<PersistentBottomNavBarItem> _navBarsItems() {

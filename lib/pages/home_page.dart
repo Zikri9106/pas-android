@@ -26,7 +26,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: Obx(() => productController.isLoading.value
-          ? const Center(child: CircularProgressIndicator(color: Color.fromARGB(255, 255, 142, 110),))
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 255, 142, 110),
+            ))
           : ListView(
               children: [
                 Padding(
@@ -148,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount:
-                            productController.productResponModelCtr.length,
+                            min(20, productController.productResponModelCtr.length),
                         itemBuilder: (BuildContext ctx, int index) {
                           final product =
                               productController.productResponModelCtr[index];

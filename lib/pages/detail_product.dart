@@ -1,14 +1,19 @@
+// ignore_for_file: non_constant_identifier_names, recursive_getters
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pas_android/Controllers/cart_controller.dart';
+import 'package:pas_android/pages/cart_page.dart';
 import '../model/product_response_model.dart';
 
 class DetailProduct extends StatelessWidget {
   final ProductResponseModel product;
 
-  const DetailProduct(this.product, {super.key});
+  const DetailProduct(this.product, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final CartController cartController = Get.put(CartController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 245, 245, 245),
@@ -43,7 +48,9 @@ class DetailProduct extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.shopping_cart,
                 color: Color.fromARGB(255, 81, 80, 112)),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => CartPage());
+            },
           ),
         ],
       ),
@@ -147,8 +154,7 @@ class DetailProduct extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start, // Set alignment to start
           children: [
             Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Align text to start
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'Total Harga :',
@@ -171,11 +177,18 @@ class DetailProduct extends StatelessWidget {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                cartController.addProduct(product);
+                Get.snackbar(
+                  'Product Added',
+                  'You have added ${product.namaBarang} to the cart.',
+                  duration: const Duration(seconds: 2),
+                );
+              },
               style: ButtonStyle(
-                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
-                fixedSize: MaterialStatePropertyAll(
+                fixedSize: MaterialStateProperty.all(
                     Size(MediaQuery.of(context).size.width * 0.6, 50)),
                 foregroundColor: const MaterialStatePropertyAll(Colors.white),
                 backgroundColor: const MaterialStatePropertyAll(
