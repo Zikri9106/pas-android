@@ -19,7 +19,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final productController = Get.put(ControllerListProduct());
-  // final detailController = Get.put(ControllerDetailProduct());
   int currentCarouselPage = 0;
 
   @override
@@ -27,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: Obx(() => productController.isLoading.value
-          ? const CircularProgressIndicator()
+          ? const Center(child: CircularProgressIndicator(color: Color.fromARGB(255, 255, 142, 110),))
           : ListView(
               children: [
                 Padding(
@@ -98,7 +97,6 @@ class _HomePageState extends State<HomePage> {
                                 return GestureDetector(
                                   onTap: () async {
                                     Get.to(DetailProduct(product));
-                                    // productController.index = index.obs;
                                   },
                                   child: ProductCarouselCard(product: product),
                                 );
@@ -106,7 +104,6 @@ class _HomePageState extends State<HomePage> {
                               options: CarouselOptions(
                                 autoPlay: true,
                                 enlargeCenterPage: true,
-                                aspectRatio: 16 / 9,
                                 viewportFraction: 0.75,
                                 enableInfiniteScroll: true,
                                 autoPlayInterval: const Duration(seconds: 5),

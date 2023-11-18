@@ -14,7 +14,8 @@ class DetailProduct extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 245, 245, 245),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 81, 80, 112)),
+          icon: const Icon(Icons.arrow_back,
+              color: Color.fromARGB(255, 81, 80, 112)),
           onPressed: () {
             Get.back();
           },
@@ -40,9 +41,9 @@ class DetailProduct extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.shopping_cart, color: Color.fromARGB(255, 81, 80, 112)),
-            onPressed: () {
-            },
+            icon: const Icon(Icons.shopping_cart,
+                color: Color.fromARGB(255, 81, 80, 112)),
+            onPressed: () {},
           ),
         ],
       ),
@@ -58,7 +59,7 @@ class DetailProduct extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,6 +137,55 @@ class DetailProduct extends StatelessWidget {
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: const Color.fromARGB(255, 255, 255, 255),
+        height: 75,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start, // Set alignment to start
+          children: [
+            Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Align text to start
+              children: [
+                const Text(
+                  'Total Harga :',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 81, 80, 112),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'Rp ${product.hargaBarang.toString()}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 255, 142, 110),
+                  ),
+                )
+              ],
+            ),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))),
+                fixedSize: MaterialStatePropertyAll(
+                    Size(MediaQuery.of(context).size.width * 0.6, 50)),
+                foregroundColor: const MaterialStatePropertyAll(Colors.white),
+                backgroundColor: const MaterialStatePropertyAll(
+                    Color.fromARGB(255, 255, 142, 110)),
+              ),
+              child: const Text(
+                'Tambah Ke Keranjang',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+            )
           ],
         ),
       ),
