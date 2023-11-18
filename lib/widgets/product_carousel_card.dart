@@ -9,8 +9,6 @@ class ProductCarouselCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardWidth =
-        MediaQuery.of(context).size.width - 20;
     return Card(
       child: Stack(
         children: [
@@ -26,7 +24,6 @@ class ProductCarouselCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10.0),
               color: const Color.fromARGB(255, 255, 255, 255),
-              width: cardWidth,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

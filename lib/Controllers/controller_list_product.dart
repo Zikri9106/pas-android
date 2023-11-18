@@ -32,7 +32,6 @@ class ControllerListProduct extends GetxController {
           "https://948d-2404-c0-7540-00-d7a6-3b65.ngrok-free.app/api/product"));
 
       if (response.statusCode == 200) {
-        // mengisi data productResponModelCtr dengan hasil json dari model
         productResponModelCtr.value = productResponseModelFromJson(response.body);
       } else {
         print("status code : " + response.statusCode.toString());
