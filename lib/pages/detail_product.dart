@@ -58,7 +58,7 @@ class DetailProduct extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(top: 15.0, right: 18.0, left: 18.0, bottom: 100.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -74,7 +74,7 @@ class DetailProduct extends StatelessWidget {
                   Text(
                     'Rp ${product.hargaBarang.toString()}',
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 255, 142, 110),
                     ),

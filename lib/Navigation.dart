@@ -24,19 +24,19 @@ class Navigation extends StatelessWidget {
           icon: const Icon(Icons.home),
           title: ("Home"),
           activeColorPrimary: const Color.fromARGB(255, 255, 142, 110),
-          inactiveColorPrimary: Colors.grey,
+          inactiveColorPrimary: const Color.fromARGB(255, 205, 205, 205),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.shopping_cart),
           title: ("Cart"),
           activeColorPrimary: const Color.fromARGB(255, 255, 142, 110),
-          inactiveColorPrimary: Colors.grey,
+          inactiveColorPrimary: const Color.fromARGB(255, 205, 205, 205),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
           title: ("Profile"),
           activeColorPrimary: const Color.fromARGB(255, 255, 142, 110),
-          inactiveColorPrimary: Colors.grey,
+          inactiveColorPrimary: const Color.fromARGB(255, 205, 205, 205),
         ),
       ];
     }
@@ -67,7 +67,7 @@ class Navigation extends StatelessWidget {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style1,
+      navBarStyle: NavBarStyle.style6,
     );
   }
 }
