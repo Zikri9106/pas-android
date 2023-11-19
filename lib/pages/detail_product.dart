@@ -178,11 +178,11 @@ class DetailProduct extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                cartController.addProduct(product);
+                cartController.addToCart(product);
                 Get.snackbar(
                   'Product Added',
                   'You have added ${product.namaBarang} to the cart.',
-                  duration: const Duration(seconds: 2),
+                  duration: const Duration(seconds: 1),
                 );
               },
               style: ButtonStyle(
