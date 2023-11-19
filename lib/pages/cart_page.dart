@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pas_android/Controllers/cart_controller.dart';
 import 'package:pas_android/model/product_response_model.dart';
+import 'package:pas_android/widgets/cart_item_card.dart';
 
 class CartPage extends StatelessWidget {
   final CartController cartController = Get.find<CartController>();
@@ -12,22 +13,53 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping Cart'),
-      ),
-      body: Obx(
-        () => ListView.builder(
-          itemCount: cartController.products.length,
-          itemBuilder: (context, index) {
-            var productEntry = cartController.products.entries.elementAt(index);
-            ProductResponseModel product = productEntry.key;
-            int quantity = productEntry.value;
-
-            return ListTile(
-              title: Text(product.namaBarang),
-              subtitle: Text('Quantity: $quantity'),
-            );
-          },
+        backgroundColor: const Color.fromARGB(255, 245, 245, 245),
+        titleSpacing: 20,
+        title: const Text(
+          'Your Cart',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 255, 142, 110),
+          ),
         ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 245, 245, 245),
+      body: Obx(
+        () {
+          if (cartController.products.isEmpty) {
+            return const Center(
+              child: Text(
+                'Belum ada barang yang tersedia di Keranjang',
+                style: TextStyle(fontSize: 14),
+              ),
+            );
+          }
+
+          return ListView.builder(
+            itemCount: cartController.products.length,
+            itemBuilder: (context, index) {
+              var productEntry =
+                  cartController.products.entries.elementAt(index);
+              ProductResponseModel product = productEntry.key;
+              int quantity = productEntry.value;
+
+              return CartItemCard(
+                product: product,
+                quantity: quantity,
+                onDelete: () {
+                  cartController.removeFromCart(product);
+                  Get.snackbar(
+                    'Product Deleted',
+                    'You have deleted ${product.namaBarang} from the cart.',
+                    duration: const Duration(seconds: 2),
+                    snackPosition: SnackPosition.BOTTOM,
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
