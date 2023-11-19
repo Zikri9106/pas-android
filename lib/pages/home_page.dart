@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pas_android/Controllers/controller_list_product.dart';
 import 'package:pas_android/pages/detail_product.dart';
+import 'package:pas_android/pages/search_page.dart';
 import 'package:pas_android/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:pas_android/widgets/product_carousel_card.dart';
@@ -61,7 +62,9 @@ class _HomePageState extends State<HomePage> {
                                 iconSize: 20,
                                 icon: const Icon(Icons.search),
                                 color: Colors.white,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(SearchPage());
+                                },
                               ),
                             ),
                           ],
@@ -150,8 +153,8 @@ class _HomePageState extends State<HomePage> {
                       ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount:
-                            min(20, productController.productResponModelCtr.length),
+                        itemCount: min(
+                            20, productController.productResponModelCtr.length),
                         itemBuilder: (BuildContext ctx, int index) {
                           final product =
                               productController.productResponModelCtr[index];
