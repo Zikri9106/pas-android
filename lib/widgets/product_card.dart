@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class ProductCard extends StatelessWidget {
   final String image;
   final String title;
