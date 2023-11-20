@@ -180,8 +180,8 @@ class DetailProduct extends StatelessWidget {
               onPressed: () {
                 cartController.addToCart(product);
                 Get.snackbar(
-                  'Product Added',
-                  'You have added ${product.namaBarang} to the cart.',
+                  'Produk Ditambahkan',
+                  'Kamu telah menambahkan ${product.namaBarang} ke dalam keranjang.',
                   duration: const Duration(seconds: 1),
                 );
               },

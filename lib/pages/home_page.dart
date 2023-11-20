@@ -28,8 +28,21 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: Obx(() => productController.isLoading.value
           ? const Center(
-              child: CircularProgressIndicator(
-              color: Color.fromARGB(255, 255, 142, 110),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  color: Color.fromARGB(255, 255, 142, 110),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'Memuat...',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 255, 142, 110),
+                  ),
+                )
+              ],
             ))
           : ListView(
               children: [
@@ -43,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           children: [
                             const Text(
-                              "Hello, User \nXiaomi",
+                              "Halo, Pengguna \nXiaomi",
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,

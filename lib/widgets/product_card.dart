@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double cardWidth =
-        MediaQuery.of(context).size.width - 20; // Lebar layar dikurangi margin
+        MediaQuery.of(context).size.width - 20;
 
     return Container(
       margin: const EdgeInsets.all(10),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pas_android/splash_screen.dart';
+import 'package:pas_android/pages/splash_screen.dart';
 import 'Controllers/cart_controller.dart';
 
 void main() {

@@ -22,19 +22,19 @@ class Navigation extends StatelessWidget {
       return [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
-          title: ("Home"),
+          title: ("Beranda"),
           activeColorPrimary: const Color.fromARGB(255, 255, 142, 110),
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.shopping_cart),
-          title: ("Cart"),
+          title: ("Keranjang"),
           activeColorPrimary: const Color.fromARGB(255, 255, 142, 110),
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
-          title: ("Profile"),
+          title: ("Profil"),
           activeColorPrimary: const Color.fromARGB(255, 255, 142, 110),
           inactiveColorPrimary: Colors.grey,
         ),

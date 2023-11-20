@@ -16,7 +16,7 @@ class CartPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 245, 245, 245),
         titleSpacing: 20,
         title: const Text(
-          'Your Cart',
+          'Keranjangmu',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -28,10 +28,18 @@ class CartPage extends StatelessWidget {
       body: Obx(
         () {
           if (cartController.products.isEmpty) {
-            return const Center(
-              child: Text(
-                'Belum ada barang yang tersedia di Keranjang',
-                style: TextStyle(fontSize: 14),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/empty.png', height: 80),
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Belum ada barang yang tersedia di Keranjang',
+                    style: TextStyle(
+                        fontSize: 14, color: Color.fromARGB(255, 81, 80, 112)),
+                  ),
+                ],
               ),
             );
           }
@@ -50,8 +58,8 @@ class CartPage extends StatelessWidget {
                 onDelete: () {
                   cartController.removeFromCart(product);
                   Get.snackbar(
-                    'Product Deleted',
-                    'You have deleted ${product.namaBarang} from the cart.',
+                    'Produk Dihapus',
+                    'Kamu telah menghapus ${product.namaBarang} dari keranjang.',
                     duration: const Duration(seconds: 2),
                     snackPosition: SnackPosition.BOTTOM,
                   );
