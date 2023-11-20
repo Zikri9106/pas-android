@@ -14,25 +14,39 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 30, bottom: 20, right: 10, left: 10),
+        padding:
+            const EdgeInsets.only(top: 50, bottom: 10, right: 10, left: 10),
         child: Column(
           children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search...',
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    Get.back();
-                  },
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: TextField(
+                cursorColor: const Color.fromARGB(255, 81, 80, 112),
+                style: const TextStyle(color: Color.fromARGB(255, 81, 80, 112)),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Color.fromARGB(255, 255, 142, 110)),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  hintText: 'Cari...',
+                  hintStyle: const TextStyle(
+                      color: Color.fromARGB(125, 81, 80, 112)),
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
                 ),
+                onChanged: (query) {
+                  productSearchController.searchProducts(query);
+                },
               ),
-              onChanged: (query) {
-                productSearchController.searchProducts(query);
-              },
             ),
-            const SizedBox(height: 5),
             Expanded(
               child: Obx(
                 () => ListView.builder(
