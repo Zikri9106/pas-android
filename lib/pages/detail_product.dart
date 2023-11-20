@@ -190,13 +190,12 @@ class DetailProduct extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10))),
                 fixedSize: MaterialStateProperty.all(
                     Size(MediaQuery.of(context).size.width * 0.6, 50)),
-                foregroundColor: const MaterialStatePropertyAll(Colors.white),
                 backgroundColor: const MaterialStatePropertyAll(
                     Color.fromARGB(255, 255, 142, 110)),
               ),
               child: const Text(
                 'Tambah Ke Keranjang',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white),
               ),
             )
           ],
