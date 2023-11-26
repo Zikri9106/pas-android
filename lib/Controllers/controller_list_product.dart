@@ -29,7 +29,7 @@ class ControllerListProduct extends GetxController {
   void loadData() async {
     try{
       final response = await http.get(Uri.parse(
-          "https://d00e-103-28-113-244.ngrok-free.app/api/product"));
+          "https://c256-2404-c0-7550-00-d330-b12d.ngrok-free.app/api/product"));
 
       if (response.statusCode == 200) {
         productResponModelCtr.value = productResponseModelFromJson(response.body);
