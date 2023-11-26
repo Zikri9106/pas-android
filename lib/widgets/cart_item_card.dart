@@ -34,22 +34,24 @@ class CartItemCard extends StatelessWidget {
                     Text(
                       product.namaBarang,
                       style: const TextStyle(
-                          fontSize: 10,
-                          color: Color.fromARGB(255, 81, 80, 112),
-                          fontWeight: FontWeight.w600),
+                        fontSize: 10,
+                        color: Color.fromARGB(255, 81, 80, 112),
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 5,),
                     Row(
                       children: [
                         const Icon(Icons.download,
                             color: Color.fromARGB(255, 255, 142, 110), size: 20,),
-                            const SizedBox(width: 6,),
+                        const SizedBox(width: 6,),
                         Text(
                           'Jumlah Barang: $quantity',
                           style: const TextStyle(
-                              fontSize: 10,
-                              color: Color.fromARGB(255, 81, 80, 112),
-                              fontWeight: FontWeight.w600),
+                            fontSize: 10,
+                            color: Color.fromARGB(255, 81, 80, 112),
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ],
                     ),
