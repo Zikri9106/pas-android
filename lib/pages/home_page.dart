@@ -1,24 +1,33 @@
+// File: home_page.dart
+
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pas_android/Controllers/ControllerListProduct.dart';
-import 'package:pas_android/Controllers/ControllerDetailProduct.dart';
-import 'package:pas_android/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:pas_android/widgets/product_carousel_card.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:get/get.dart';
+import 'package:pas-android/controllers/controller_detail_product.dart';
+import 'package:pas-android/controllers/controller_list_product.dart';
+import 'package:pas-android/widgets/product_card.dart';
+import 'package:pas-android/widgets/product_carousel_card.dart';
+import 'account/account_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   final productController = Get.put(ControllerListProduct());
   final detailController = Get.put(ControllerDetailProduct());
   int currentCarouselPage = 0;
+  int selectedIndex = 0;
+  List<Widget> pages = [
+    Container(child: const Center(child: Text("Next Page"),),),
+    Container(child: const Center(child: Text("Next Pageeee"),),),
+    AccountPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                                 return GestureDetector(
                                   onTap: () async {
                                     await detailController
-                                        .loadProductsFromDatabase(); 
+                                        .loadProductsFromDatabase();
                                     detailController.selectedDetail(index);
                                   },
                                   child: ProductCarouselCard(product: product),
@@ -159,6 +168,20 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             )),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined,),
+            label: "Home"
+          ),
+        ],
+        currentIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+      ),
     );
   }
 }
