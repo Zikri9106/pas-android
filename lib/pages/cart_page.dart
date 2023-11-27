@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pas_android/Controllers/cart_controller.dart';
 import 'package:pas_android/model/product_response_model.dart';
+import 'package:pas_android/pages/checkout_page.dart';
 import 'package:pas_android/widgets/cart_item_card.dart';
 import 'package:pas_android/widgets/checkout_appbar.dart';
 
@@ -74,6 +75,7 @@ class _CartPageState extends State<CartPage> {
                         children: [
                           Expanded(
                             child: Checkbox(
+                              activeColor: Color.fromARGB(255, 255, 142, 110),
                               value: isChecked,
                               onChanged: (value) {
                                 setState(() {
@@ -112,6 +114,15 @@ class _CartPageState extends State<CartPage> {
           if (isAnyItemChecked)
             CheckoutAppBar(
               onCheckoutPressed: () {
+                List<ProductResponseModel> checkedProducts = checkedItems
+                    .entries
+                    .where((entry) => entry.value)
+                    .map((entry) => entry.key)
+                    .toList();
+                Get.to(() => CheckoutPage(
+                      checkedProducts: checkedProducts,
+                      checkedItems: checkedItems,
+                    ));
               },
               cartController: cartController,
             ),
