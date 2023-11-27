@@ -17,7 +17,6 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   final CartController cartController = Get.find<CartController>();
   Map<ProductResponseModel, bool> checkedItems = {};
-  bool isAnyItemChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +81,6 @@ class _CartPageState extends State<CartPage> {
                                   checkedItems[product] = value ?? false;
                                   cartController.products[product]!.isChecked =
                                       value ?? false;
-                                  updateIsAnyItemChecked();
                                 });
                               },
                             ),
@@ -111,7 +109,6 @@ class _CartPageState extends State<CartPage> {
               },
             ),
           ),
-          if (isAnyItemChecked)
             CheckoutAppBar(
               onCheckoutPressed: () {
                 List<ProductResponseModel> checkedProducts = checkedItems
@@ -129,11 +126,5 @@ class _CartPageState extends State<CartPage> {
         ],
       ),
     );
-  }
-
-  void updateIsAnyItemChecked() {
-    setState(() {
-      isAnyItemChecked = checkedItems.values.any((isChecked) => isChecked);
-    });
   }
 }
