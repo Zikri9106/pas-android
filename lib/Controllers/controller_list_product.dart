@@ -12,13 +12,6 @@ class ControllerListProduct extends GetxController {
   SharedPreferences? prefs;
   RxBool isLoading = true.obs;
 
-  // RxString sessionUsername = "".obs;
-  // void loadSession() async{
-  //   prefs = await SharedPreferences.getInstance();
-  //   sessionUsername.value = prefs!.getString("username") ?? "no data";
-  //   print("get username "+ sessionUsername.value.toString());
-  // }
-
   @override
   void onInit(){
     super.onInit();
@@ -29,7 +22,7 @@ class ControllerListProduct extends GetxController {
   void loadData() async {
     try{
       final response = await http.get(Uri.parse(
-          "https://c256-2404-c0-7550-00-d330-b12d.ngrok-free.app/api/product"));
+          "https://e167-43-252-106-218.ngrok-free.app/api/product"));
 
       if (response.statusCode == 200) {
         productResponModelCtr.value = productResponseModelFromJson(response.body);
