@@ -1,21 +1,20 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pas_android/Controllers/controller_list_product.dart';
+import 'package:pas_android/controllers/controller_detail_product.dart';
+import 'package:pas_android/controllers/controller_list_product.dart';
+import 'package:pas_android/pages/account/account_page.dart';
 import 'package:pas_android/pages/detail_product.dart';
 import 'package:pas_android/pages/search_page.dart';
 import 'package:pas_android/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:pas_android/widgets/product_carousel_card.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -191,6 +190,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             )),
+      
     );
   }
 }
