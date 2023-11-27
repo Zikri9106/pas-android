@@ -1,15 +1,14 @@
-// File: home_page.dart
-
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pas_android/controllers/controller_detail_product.dart';
+import 'package:pas_android/controllers/controller_list_product.dart';
+import 'package:pas_android/pages/account/account_page.dart';
+import 'package:pas_android/pages/detail_product.dart';
+import 'package:pas_android/pages/search_page.dart';
+import 'package:pas_android/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:get/get.dart';
-import 'package:pas-android/controllers/controller_detail_product.dart';
-import 'package:pas-android/controllers/controller_list_product.dart';
-import 'package:pas-android/widgets/product_card.dart';
-import 'package:pas-android/widgets/product_carousel_card.dart';
-import 'account/account_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,62 +19,79 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final productController = Get.put(ControllerListProduct());
-  final detailController = Get.put(ControllerDetailProduct());
   int currentCarouselPage = 0;
-  int selectedIndex = 0;
-  List<Widget> pages = [
-    Container(child: const Center(child: Text("Next Page"),),),
-    Container(child: const Center(child: Text("Next Pageeee"),),),
-    AccountPage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 234, 234),
+      backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: Obx(() => productController.isLoading.value
-          ? const CircularProgressIndicator()
+          ? const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  color: Color.fromARGB(255, 255, 142, 110),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'Memuat...',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 255, 142, 110),
+                  ),
+                )
+              ],
+            ))
           : ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          const Text(
-                            "Hello, User \nXiaomi",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 255, 142, 110),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Halo, Pengguna \nXiaomi",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 255, 142, 110),
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 142, 110),
-                              borderRadius: BorderRadius.circular(8.0),
+                            const Spacer(),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 142, 110),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: IconButton(
+                                iconSize: 20,
+                                icon: const Icon(Icons.search),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Get.to(SearchPage());
+                                },
+                              ),
                             ),
-                            child: IconButton(
-                              iconSize: 20,
-                              icon: const Icon(Icons.search),
-                              color: Colors.white,
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 25),
-                      const Text(
-                        "Barang Terpopuler",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 81, 80, 112),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          "Barang Terpopuler",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 81, 80, 112),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -98,9 +114,7 @@ class _HomePageState extends State<HomePage> {
                                 final product = sortedProducts[index];
                                 return GestureDetector(
                                   onTap: () async {
-                                    await detailController
-                                        .loadProductsFromDatabase();
-                                    detailController.selectedDetail(index);
+                                    Get.to(DetailProduct(product));
                                   },
                                   child: ProductCarouselCard(product: product),
                                 );
@@ -108,7 +122,6 @@ class _HomePageState extends State<HomePage> {
                               options: CarouselOptions(
                                 autoPlay: true,
                                 enlargeCenterPage: true,
-                                aspectRatio: 16 / 9,
                                 viewportFraction: 0.75,
                                 enableInfiniteScroll: true,
                                 autoPlayInterval: const Duration(seconds: 5),
@@ -137,12 +150,15 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 25),
-                      const Text(
-                        "Barang Terbaru",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 81, 80, 112),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          "Barang Terbaru",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 81, 80, 112),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -154,12 +170,18 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (BuildContext ctx, int index) {
                           final product =
                               productController.productResponModelCtr[index];
-                          return ProductCard(
-                            image: product.gambarBarang,
-                            title: product.namaBarang,
-                            price: product.hargaBarang,
-                            rating: product.rating,
-                            totalBuy: product.jumlahTerjual,
+                          return GestureDetector(
+                            onTap: () async {
+                              Get.to(DetailProduct(product));
+                              // productController.index = index.obs;
+                            },
+                            child: ProductCard(
+                              image: product.gambarBarang,
+                              title: product.namaBarang,
+                              price: product.hargaBarang,
+                              rating: product.rating,
+                              totalBuy: product.jumlahTerjual,
+                            ),
                           );
                         },
                       ),
@@ -168,20 +190,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             )),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined,),
-            label: "Home"
-          ),
-        ],
-        currentIndex: selectedIndex,
-        onTap: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-      ),
+      
     );
   }
 }

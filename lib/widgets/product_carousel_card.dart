@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pas_android/model/ProductResponseModel.dart';
+import 'package:pas_android/model/product_response_model.dart';
 
 class ProductCarouselCard extends StatelessWidget {
   final ProductResponseModel product;
@@ -9,10 +9,6 @@ class ProductCarouselCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardWidth =
-        MediaQuery.of(context).size.width - 20;
-    double cardHeight =
-        cardWidth * 3/4;
     return Card(
       child: Stack(
         children: [
@@ -20,7 +16,6 @@ class ProductCarouselCard extends StatelessWidget {
             product.gambarBarang,
             fit: BoxFit.cover,
             width: double.infinity,
-            height: cardHeight,
           ),
           Positioned(
             bottom: 0,
@@ -29,7 +24,6 @@ class ProductCarouselCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10.0),
               color: const Color.fromARGB(255, 255, 255, 255),
-              width: cardWidth,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -40,26 +34,25 @@ class ProductCarouselCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 5),
                   Text(
                     'Rp${product.hargaBarang}',
                     style: const TextStyle(
-                      fontSize: 13.0,
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Color.fromARGB(255, 255, 142, 110),
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  // Icon Bintang, Rating, Icon Cart, dan Jumlah Terjual
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       const Icon(Icons.star,
                           color: Color.fromARGB(255, 255, 142, 110), size: 15),
-                      Text(' ${product.rating}'),
+                      Text(' ${product.rating}', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),),
                       const SizedBox(width: 8.0),
                       const Icon(Icons.shopping_cart,
                           color: Color.fromARGB(255, 255, 142, 110), size: 15),
-                      Text(' ${product.jumlahTerjual} Terjual'),
+                      Text(' ${product.jumlahTerjual} Terjual', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),),
                     ],
                   ),
                 ],

@@ -1,22 +1,16 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'package:get/get.dart';
-import 'package:pas_android/model/ProductResponseModel.dart';
+import 'package:pas_android/model/product_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ControllerListProduct extends GetxController {
+    RxInt index = 0.obs;
   RxList<ProductResponseModel> productResponModelCtr =
       <ProductResponseModel>[].obs;
   SharedPreferences? prefs;
   RxBool isLoading = true.obs;
-
-  // RxString sessionUsername = "".obs;
-  // void loadSession() async{
-  //   prefs = await SharedPreferences.getInstance();
-  //   sessionUsername.value = prefs!.getString("username") ?? "no data";
-  //   print("get username "+ sessionUsername.value.toString());
-  // }
 
   @override
   void onInit(){
@@ -28,10 +22,9 @@ class ControllerListProduct extends GetxController {
   void loadData() async {
     try{
       final response = await http.get(Uri.parse(
-          "https://edf5-2404-c0-7050-00-8ba1-c62e.ngrok-free.app/api/product"));
+          "https://e167-43-252-106-218.ngrok-free.app/api/product"));
 
       if (response.statusCode == 200) {
-        // mengisi data productResponModelCtr dengan hasil json dari model
         productResponModelCtr.value = productResponseModelFromJson(response.body);
       } else {
         print("status code : " + response.statusCode.toString());

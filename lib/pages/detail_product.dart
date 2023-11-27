@@ -1,72 +1,113 @@
+// ignore_for_file: non_constant_identifier_names, recursive_getters
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pas_android/Controllers/cart_controller.dart';
+import 'package:pas_android/pages/cart_page.dart';
+import '../model/product_response_model.dart';
 
 class DetailProduct extends StatelessWidget {
-  final String productName;
-  final String productImage;
-  final String productPrice;
-  final double productRating;
-  final String totalSold;
-  final int remainingStock;
-  final String productSpecification;
-  final String productDescription;
+  final ProductResponseModel product;
 
-  const DetailProduct({super.key, 
-    required this.productName,
-    required this.productImage,
-    required this.productPrice,
-    required this.productRating,
-    required this.totalSold,
-    required this.remainingStock,
-    required this.productSpecification,
-    required this.productDescription,
-  });
+  const DetailProduct(this.product, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final CartController cartController = Get.put(CartController());
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 245, 245, 245),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back,
+              color: Color.fromARGB(255, 81, 80, 112)),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/logo-mishop.png',
+              height: 30,
+              width: 30,
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              'MiShop',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 142, 110),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart,
+                color: Color.fromARGB(255, 81, 80, 112)),
+            onPressed: () {
+              Get.to(() => CartPage());
+            },
+          ),
+        ],
+      ),
+      backgroundColor: const Color.fromARGB(255, 245, 245, 245),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              productImage,
-              height: 200,
+              product.gambarBarang,
+              height: 500,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    productName,
+                    product.namaBarang,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 81, 80, 112),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Rp ${productPrice.toString()}',
+                    'Rp ${product.hargaBarang.toString()}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.orange,
+                      color: Color.fromARGB(255, 255, 142, 110),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.star, color: Colors.yellow),
+                      const Icon(Icons.star,
+                          color: Color.fromARGB(255, 255, 142, 110), size: 16),
                       const SizedBox(width: 4),
-                      Text(productRating.toString(),
+                      Text(product.rating.toString(),
                           style: const TextStyle(fontSize: 16)),
-                      const SizedBox(width: 8),
-                      Text('Terjual $totalSold',
+                      const SizedBox(width: 50),
+                      const Icon(Icons.sell,
+                          color: Color.fromARGB(255, 255, 142, 110), size: 15),
+                      const SizedBox(width: 4),
+                      Text('${product.jumlahTerjual} terjual',
                           style: const TextStyle(fontSize: 16)),
-                      const SizedBox(width: 8),
-                      Text('Stok $remainingStock',
+                      const SizedBox(width: 50),
+                      const Icon(Icons.shopping_cart,
+                          color: Color.fromARGB(255, 255, 142, 110), size: 15),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text('${product.sisaBarang} Stok',
                           style: const TextStyle(fontSize: 16)),
                     ],
                   ),
@@ -74,31 +115,89 @@ class DetailProduct extends StatelessWidget {
                   const Text(
                     'Spesifikasi',
                     style: TextStyle(
+                      color: Color.fromARGB(255, 255, 142, 110),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    productSpecification,
-                    style: const TextStyle(fontSize: 16),
+                    product.spesifikasiBarang,
+                    style: const TextStyle(
+                        fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
                   ),
                   const SizedBox(height: 16),
                   const Text(
                     'Deskripsi',
                     style: TextStyle(
+                      color: Color.fromARGB(255, 255, 142, 110),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    productDescription,
-                    style: const TextStyle(fontSize: 16),
+                    product.deskripsiBarang,
+                    style: const TextStyle(
+                        fontSize: 13, color: Color.fromARGB(255, 81, 80, 112)),
                   ),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: const Color.fromARGB(255, 255, 255, 255),
+        height: 75,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start, // Set alignment to start
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Total Harga :',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 81, 80, 112),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'Rp ${product.hargaBarang.toString()}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 255, 142, 110),
+                  ),
+                )
+              ],
+            ),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                cartController.addToCart(product);
+                Get.snackbar(
+                  'Produk Ditambahkan',
+                  'Kamu telah menambahkan ${product.namaBarang} ke dalam keranjang.',
+                  duration: const Duration(seconds: 1),
+                );
+              },
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))),
+                fixedSize: MaterialStateProperty.all(
+                    Size(MediaQuery.of(context).size.width * 0.6, 50)),
+                backgroundColor: const MaterialStatePropertyAll(
+                    Color.fromARGB(255, 255, 142, 110)),
+              ),
+              child: const Text(
+                'Tambah Ke Keranjang',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white),
+              ),
+            )
           ],
         ),
       ),
