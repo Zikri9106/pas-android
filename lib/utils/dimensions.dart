@@ -67,18 +67,3 @@ class Dimensions {
     listViewTextContSize = screenWidth / 3.9;
   }
 }
-
-class YourApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Dimensions.initializeDimensions(context);
-
-    return MaterialApp(
-      // Your app code here
-    );
-  }
-}
-
-void main() {
-  runApp(YourApp());
-}

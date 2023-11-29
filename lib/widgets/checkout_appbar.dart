@@ -40,16 +40,32 @@ class CheckoutAppBar extends StatelessWidget {
               Spacer(),
               ElevatedButton(
                 style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))),
-                fixedSize: MaterialStateProperty.all(
-                    Size(MediaQuery.of(context).size.width * 0.45, 50)),
-                backgroundColor: const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 255, 142, 110)),
-              ),
-                onPressed:
-                    cartController.totalAmount > 0 ? onCheckoutPressed : null,
-                child: const Text('Checkout', style: TextStyle(fontSize: 15, color: Colors.white),),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+                  fixedSize: MaterialStateProperty.all(
+                    Size(MediaQuery.of(context).size.width * 0.45, 50),
+                  ),
+                  backgroundColor: cartController.totalAmount > 0
+                      ? MaterialStateProperty.all(
+                          Color.fromARGB(255, 255, 142, 110),
+                        )
+                      : MaterialStateProperty.all(
+                          Colors.grey,
+                        ),
+                ),
+                onPressed: cartController.totalAmount > 0
+                    ? onCheckoutPressed
+                    : null,
+                child: Text(
+                  'Checkout',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: cartController.totalAmount > 0
+                        ? Colors.white
+                        : const Color.fromARGB(255, 206, 206, 206), // Set warna abu-abu jika tidak ada barang yang dicentang
+                  ),
+                ),
               ),
             ],
           ),

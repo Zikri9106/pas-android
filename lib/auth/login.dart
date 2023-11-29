@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pas-android/utils/colors.dart';
-import 'package:pas-android/widgets/app_text_field.dart';
+import '../Navigation.dart';
+import '../utils/colors.dart';
 import '../utils/dimensions.dart';
 
 class Login extends StatelessWidget {
@@ -14,6 +14,7 @@ class Login extends StatelessWidget {
     var passwordController = TextEditingController();
     var nameController = TextEditingController();
     var phoneController = TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -29,36 +30,79 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
-            AppTextField(
-              textController: emailController,
-              hintText: "Email",
-              icon: Icons.email,
+            TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(
+                hintText: "Email",
+                prefixIcon: Icon(Icons.email),
+              ),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                // Implement email validation logic
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a valid email';
+                }
+                return null;
+              },
             ),
             SizedBox(height: Dimensions.height20),
-            AppTextField(
-              textController: passwordController,
-              hintText: "Password",
-              icon: Icons.password_sharp,
+            TextFormField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                hintText: "Password",
+                prefixIcon: Icon(Icons.password_sharp),
+              ),
+              obscureText: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a valid password';
+                }
+                return null;
+              },
             ),
             SizedBox(height: Dimensions.height20),
-            AppTextField(
-              textController: nameController,
-              hintText: "Name",
-              icon: Icons.person,
+            TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(
+                hintText: "Name",
+                prefixIcon: Icon(Icons.person),
+              ),
+              validator: (value) {
+                // Implement name validation logic
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your name';
+                }
+                return null;
+              },
             ),
             SizedBox(height: Dimensions.height20),
-            AppTextField(
-              textController: phoneController,
-              hintText: "Phone",
-              icon: Icons.phone,
+            TextFormField(
+              controller: phoneController,
+              decoration: InputDecoration(
+                hintText: "Phone",
+                prefixIcon: Icon(Icons.phone),
+              ),
+              keyboardType: TextInputType.phone,
+              validator: (value) {
+                // Implement phone validation logic
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a valid phone number';
+                }
+                return null;
+              },
             ),
             SizedBox(height: Dimensions.height20),
             ElevatedButton(
               onPressed: () {
-                // Handle sign-up logic
+                if (validateForm()) {
+                  String userEmail = emailController.text;
+                  String userName = nameController.text;
+
+                  Get.to(Navigation(email: userEmail, name: userName));
+                }
               },
               style: ElevatedButton.styleFrom(
-                primary: AppColors.mainColor,
+                backgroundColor: AppColors.mainColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Dimensions.radius30),
                 ),
@@ -89,5 +133,9 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool validateForm() {
+    return true;
   }
 }

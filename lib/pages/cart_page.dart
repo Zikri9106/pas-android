@@ -17,7 +17,6 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   final CartController cartController = Get.find<CartController>();
   Map<ProductResponseModel, bool> checkedItems = {};
-  bool isAnyItemChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +81,6 @@ class _CartPageState extends State<CartPage> {
                                   checkedItems[product] = value ?? false;
                                   cartController.products[product]!.isChecked =
                                       value ?? false;
-                                  updateIsAnyItemChecked();
                                 });
                               },
                             ),
@@ -93,12 +91,28 @@ class _CartPageState extends State<CartPage> {
                               product: product,
                               quantity: quantity,
                               onDelete: () {
-                                cartController.removeFromCart(product);
-                                Get.snackbar(
-                                  'Produk Dihapus',
-                                  'Kamu telah menghapus ${product.namaBarang} dari keranjang.',
-                                  duration: const Duration(seconds: 2),
-                                  snackPosition: SnackPosition.BOTTOM,
+                                Get.defaultDialog(
+                                  title: 'Konfirmasi',
+                                  middleTextStyle: TextStyle(fontSize: 12),
+                                  middleText:
+                                      'Apakah Anda ingin menghapus ${product.namaBarang} dari keranjang?',
+                                  textConfirm: 'Ya',
+                                  textCancel: 'Tidak',
+                                  buttonColor: Color.fromARGB(255, 255, 142, 110),
+                                  confirmTextColor: Colors.white,
+                                  onConfirm: () {
+                                    cartController.removeFromCart(product);
+                                    Get.back();
+                                    Get.snackbar(
+                                      'Produk Dihapus',
+                                      'Kamu telah menghapus ${product.namaBarang} dari keranjang.',
+                                      duration: const Duration(seconds: 2),
+                                      snackPosition: SnackPosition.BOTTOM,
+                                    );
+                                  },
+                                  onCancel: () {
+                                    Get.back();
+                                  },
                                 );
                               },
                             ),
@@ -111,29 +125,21 @@ class _CartPageState extends State<CartPage> {
               },
             ),
           ),
-          if (isAnyItemChecked)
-            CheckoutAppBar(
-              onCheckoutPressed: () {
-                List<ProductResponseModel> checkedProducts = checkedItems
-                    .entries
-                    .where((entry) => entry.value)
-                    .map((entry) => entry.key)
-                    .toList();
-                Get.to(() => CheckoutPage(
-                      checkedProducts: checkedProducts,
-                      checkedItems: checkedItems,
-                    ));
-              },
-              cartController: cartController,
-            ),
+          CheckoutAppBar(
+            onCheckoutPressed: () {
+              List<ProductResponseModel> checkedProducts = checkedItems.entries
+                  .where((entry) => entry.value)
+                  .map((entry) => entry.key)
+                  .toList();
+              Get.to(() => CheckoutPage(
+                    checkedProducts: checkedProducts,
+                    checkedItems: checkedItems,
+                  ));
+            },
+            cartController: cartController,
+          ),
         ],
       ),
     );
-  }
-
-  void updateIsAnyItemChecked() {
-    setState(() {
-      isAnyItemChecked = checkedItems.values.any((isChecked) => isChecked);
-    });
   }
 }

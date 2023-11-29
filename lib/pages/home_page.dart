@@ -1,14 +1,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pas_android/controllers/controller_detail_product.dart';
-import 'package:pas_android/controllers/controller_list_product.dart';
-import 'package:pas_android/pages/account/account_page.dart';
+import 'package:pas_android/Controllers/controller_list_product.dart';
 import 'package:pas_android/pages/detail_product.dart';
 import 'package:pas_android/pages/search_page.dart';
 import 'package:pas_android/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+
+import '../widgets/product_carousel_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final productController = Get.put(ControllerListProduct());
+
   int currentCarouselPage = 0;
 
   @override
