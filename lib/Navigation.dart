@@ -1,13 +1,16 @@
 // ignore_for_file: file_names, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+import 'package:pas_android/pages/account_page.dart';
 import 'package:pas_android/pages/cart_page.dart';
 import 'package:pas_android/pages/home_page.dart';
-import 'package:pas_android/pages/profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Navigation extends StatelessWidget {
-  const Navigation({super.key});
+  const Navigation({Key? key, required this.email, required this.name}) : super(key: key);
+
+  final String email;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class Navigation extends StatelessWidget {
     controller = PersistentTabController(initialIndex: 0);
 
     List<Widget> _buildScreens() {
-      return [const HomePage(), CartPage(), const ProfilePage()];
+      return [const HomePage(), CartPage(), AccountPage(email: '', name: '',)];
     }
 
     List<PersistentBottomNavBarItem> _navBarsItems() {

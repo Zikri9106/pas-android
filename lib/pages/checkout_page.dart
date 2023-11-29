@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pas_android/Navigation.dart';
-
 import '../Controllers/cart_controller.dart';
 import '../model/product_response_model.dart';
+import '../widgets/payment_complete_dialog.dart';
+import '../widgets/payment_method_widget.dart';
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutPage extends StatefulWidget {
   final CartController cartController = Get.find<CartController>();
   final Map<ProductResponseModel, bool> checkedItems;
   final List<ProductResponseModel> checkedProducts;
@@ -13,6 +13,13 @@ class CheckoutPage extends StatelessWidget {
   CheckoutPage(
       {Key? key, required this.checkedProducts, required this.checkedItems})
       : super(key: key);
+
+  @override
+  _CheckoutPageState createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  String selectedPaymentMethod = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +50,7 @@ class CheckoutPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 10),
             Text(
               'Produk Dipilih',
               style: TextStyle(
@@ -54,13 +62,13 @@ class CheckoutPage extends StatelessWidget {
             SizedBox(height: 8),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: checkedProducts.length,
+              itemCount: widget.checkedProducts.length,
               itemBuilder: (context, index) {
-                var product = checkedProducts[index];
+                var product = widget.checkedProducts[index];
                 return ListTile(
                   title: Text(product.namaBarang),
                   subtitle: Text(
-                      'Jumlah: ${cartController.products[product]!.quantity}'),
+                      'Jumlah: ${widget.cartController.products[product]!.quantity}'),
                 );
               },
             ),
@@ -76,13 +84,23 @@ class CheckoutPage extends StatelessWidget {
             SizedBox(height: 8),
             Obx(() {
               return Text(
-                'Rp. ${cartController.totalAmount.toStringAsFixed(0)}',
+                'Rp. ${widget.cartController.totalAmount.toStringAsFixed(0)}',
                 style: TextStyle(
                   fontSize: 16,
                   color: Color.fromARGB(255, 81, 80, 112),
                 ),
               );
             }),
+            SizedBox(
+              height: 20,
+            ),
+            PaymentMethodWidget(
+              onPaymentMethodSelected: (paymentMethod) {
+                setState(() {
+                  selectedPaymentMethod = paymentMethod;
+                });
+              },
+            ),
           ],
         ),
       ),
@@ -90,45 +108,34 @@ class CheckoutPage extends StatelessWidget {
         color: const Color.fromARGB(255, 255, 255, 255),
         height: 75,
         child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  backgroundColor: Colors.white,
-                  title: Text(
-                    'Pembayaran Selesai',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color.fromARGB(255, 255, 142, 110)),
-                  ),
-                  content: Text('Terima kasih telah berbelanja!',style: TextStyle(color: Color.fromARGB(255, 81, 80, 112), fontSize: 12),),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Get.to(() => Navigation());
-                      },
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
-                        backgroundColor: const MaterialStatePropertyAll(
-                          Color.fromARGB(255, 255, 142, 110),
-                        ),
-                      ),
-                      child: Text('OK', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
+          onPressed: selectedPaymentMethod.isEmpty
+              ? null
+              : () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      var selectedProduct = widget.checkedProducts.firstWhere(
+                        (product) => widget.checkedItems[product] == true,
+                      );
+                      return PaymentCompleteDialog(
+                        productName: selectedProduct.namaBarang,
+                        totalAmount: widget.cartController.totalAmount
+                            .toStringAsFixed(0),
+                        paymentMethod: selectedPaymentMethod,
+                      );
+                    },
+                  );
+                },
           style: ButtonStyle(
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             )),
-            backgroundColor: const MaterialStatePropertyAll(
-              Color.fromARGB(255, 255, 142, 110),
-            ),
+            backgroundColor: selectedPaymentMethod.isEmpty
+                ? MaterialStateProperty.all(Colors.grey)
+                : const MaterialStatePropertyAll(
+                    Color.fromARGB(255, 255, 142, 110),
+                  ),
           ),
           child: const Text(
             'Checkout Sekarang',
